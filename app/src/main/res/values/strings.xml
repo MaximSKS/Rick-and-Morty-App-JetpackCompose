@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Rick_and_Morty</string>
+
+    <!-- TopBar, BottomBar text -->
+    <string name="top_btm_bar_characters_txt">Characters</string>
+    <string name="top_btm_bar_locations_txt">Locations</string>
+    <string name="top_btm_bar_episodes_txt">Episodes</string>
+
+
+    <!-- CharacterDetailsScreen -->
+    <string name="episodes_txt">Episodes:</string>
+    <string name="live_status_txt">Live Status:</string>
+    <string name="first_seen_in_txt">First seen in:</string>
+    <string name="last_known_location_txt">Last known location:</string>
+    <string name="species_and_gender_txt">Species and Gender:</string>
+
+    <!-- Errors text -->
+    <string name="error_loading_characters">Error loading characters: %1$s</string>
+    <string name="unknown">Unknown</string>
+
+    <!-- Buttons text -->
+    <string name="retry">Retry</string>"
+
+</resources>
