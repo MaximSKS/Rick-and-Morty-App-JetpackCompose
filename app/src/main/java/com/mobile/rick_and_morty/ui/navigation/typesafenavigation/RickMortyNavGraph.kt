@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 
-/* NavGraph для type-safe навигации (в этом приложении используем type-safe) */
+/* NavGraph для type-safe навигации */
 @Composable
 fun RickMortyNavGraph(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(

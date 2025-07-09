@@ -1,7 +1,7 @@
 package com.mobile.rick_and_morty.data.repository
 
 import com.mobile.rick_and_morty.data.remote.RickAndMortyApi
-import com.mobile.rick_and_morty.domain.mappers.toDomain
+import com.mobile.rick_and_morty.data.mappers.toDomain
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.domain.repository.CharacterDetailsRepository
 import javax.inject.Inject

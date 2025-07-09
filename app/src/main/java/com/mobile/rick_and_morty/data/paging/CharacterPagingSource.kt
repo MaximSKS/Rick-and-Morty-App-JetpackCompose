@@ -3,7 +3,7 @@ package com.mobile.rick_and_morty.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.mobile.rick_and_morty.data.remote.RickAndMortyApi
-import com.mobile.rick_and_morty.domain.mappers.toDomain
+import com.mobile.rick_and_morty.data.mappers.toDomain
 import com.mobile.rick_and_morty.domain.model.Character
 
 class CharacterPagingSource(
@@ -15,7 +15,7 @@ class CharacterPagingSource(
 
             val page = params.key ?: 1
 
-            val response = api.getCharacters(page = page) //  Делаем запрос к API
+            val response = api.getCharacters(page = page)
 
             val characters = response.results.map { it.toDomain() }
 

@@ -327,7 +327,7 @@ private fun InfoTextWithStatusIndicator(
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black,
             )
-            // Статус в виде цветного кружочка
+
             Box(
                 modifier = modifier
                     .size(Sizes.size6)
@@ -346,9 +346,9 @@ private fun CharacterInfoSection(
     statusColor: Color
 ) {
     val infoList = listOf(
-        stringResource(R.string.species_and_gender_txt) to "${character.species} (${character.gender.name})", // "Species and Gender:"
-        stringResource(R.string.last_known_location_txt) to character.locationName, // "Last known location:"
-        stringResource(R.string.first_seen_in_txt) to character.name  /*"First seen in:"*/
+        stringResource(R.string.species_and_gender_txt) to "${character.species} (${character.gender.name})",
+        stringResource(R.string.last_known_location_txt) to character.locationName,
+        stringResource(R.string.first_seen_in_txt) to character.name
     )
 
     Column(
@@ -411,13 +411,3 @@ private fun EpisodeCard(
         }
     }
 }
-
-//@Preview
-//@Composable
-//private fun CharacterDetailsPreview(modifier: Modifier = Modifier) {
-//
-//    CharacterDetailsScreen(
-//        characterId = CharacterMock.characterMockData.id,
-//        viewModel = CharacterDetailsViewModel()
-//    )
-//}

@@ -1,4 +1,4 @@
-package com.mobile.rick_and_morty.domain.mappers
+package com.mobile.rick_and_morty.data.mappers
 
 import com.mobile.rick_and_morty.data.model.CharacterDto
 import com.mobile.rick_and_morty.domain.model.Character
