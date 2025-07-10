@@ -1,8 +1,7 @@
 package com.mobile.rick_and_morty.di
 
-/** Классический вариант для инъекции зависимостей (для репозиториев).
-А также используем этот способ когда нет доступа к самому классу/интерфейсу (например класс Retrofit)**/
 
+// Classic approach to inject dependencies (or when we don't have access to the class/interface)
 //@Module
 //@InstallIn(SingletonComponent::class)
 //object RepositoryModule {
