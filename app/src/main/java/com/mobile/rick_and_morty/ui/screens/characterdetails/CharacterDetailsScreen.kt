@@ -55,10 +55,10 @@ import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
 fun CharacterDetailsScreen(
     characterId: Int,
     viewModel: CharacterDetailsViewModel,
-    navigateToCharactersMainScreen: () -> Unit, // переход назад на главную страницу с персонажами
+    navigateToCharactersMainScreen: () -> Unit,
 ) {
-    val characterState by viewModel.characterState.collectAsState() //Собираем UiState<Character>
-    val episodesState by viewModel.episodesState.collectAsState() //Собираем UiState<List<Episode>>
+    val characterState by viewModel.characterState.collectAsState()
+    val episodesState by viewModel.episodesState.collectAsState()
 
 
     LaunchedEffect(characterId) {
@@ -68,7 +68,7 @@ fun CharacterDetailsScreen(
     when (characterState) {
 
         is UiState.Loading -> {
-            // Пока персонаж загружается — полный экранный индикатор
+
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
@@ -82,17 +82,17 @@ fun CharacterDetailsScreen(
         }
 
         is UiState.Success -> {
-            //  Персонаж пришёл — разворачиваем данные
+
             val character = (characterState as UiState.Success).data
             val statusColor = CharacterStatusColor(character.status)
 
-            // Как только у нас есть character, запускаем загрузку эпизодов
+
             LaunchedEffect(character) {
                 viewModel.loadEpisodes(character.episodeUrls)
             }
 
             Scaffold(
-                //Modifier.fillMaxSize().systemBarsPadding(),
+
                 topBar = {
 
                     TopBar(
@@ -146,10 +146,10 @@ fun CharacterDetailsScreen(
                         )
                     }
 
-                    // Вставляем разные варианты для эпизодов
+
                     when (episodesState) {
                         is UiState.Loading -> {
-                            // Пока эпизоды загружаются — один элемент с индикатором
+
                             item {
                                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                                     CircularProgressIndicator(Modifier.padding(Spaces.space16))
@@ -158,7 +158,7 @@ fun CharacterDetailsScreen(
                         }
 
                         is UiState.Error -> {
-                            // Ошибка загрузки эпизодов
+
                             val errorMsg = (episodesState as UiState.Error).message
                             item {
                                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -172,7 +172,7 @@ fun CharacterDetailsScreen(
                         }
 
                         is UiState.Success -> {
-                            // Успешно — рисуем список эпизодов
+
                             val episodes = (episodesState as UiState.Success).data
 
                             items(items = episodes, key = { it.id }) { episode ->
@@ -184,7 +184,7 @@ fun CharacterDetailsScreen(
                                     episodeName = episode.name,
                                     airDate = episode.airDate,
                                     episodeCode = episode.episodeCode
-                                ) { /* onClick эпизода */ }
+                                ) { /* episode onClick */ }
                             }
 
                         }

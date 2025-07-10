@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 
-/* NavGraph для type-safe навигации */
+/* NavGraph for Rick and Morty app */
 @Composable
 fun RickMortyNavGraph(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(

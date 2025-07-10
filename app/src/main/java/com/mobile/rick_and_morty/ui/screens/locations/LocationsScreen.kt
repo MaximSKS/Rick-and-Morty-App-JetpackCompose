@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-//Test locations screen for bottom nav bar. Real screen will be implemented later.
+//Test locations screen for bottom nav bar. Will be implemented later.
 @Composable
 fun LocationsScreen(modifier: Modifier = Modifier) {
     Box(

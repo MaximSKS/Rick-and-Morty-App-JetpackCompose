@@ -37,10 +37,10 @@ fun CharactersMainScreen(
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
     val lazyPagingItems = viewModel.characters.collectAsLazyPagingItems()
-    val gridState = rememberLazyGridState() //  запоминаем состояние грида
+    val gridState = rememberLazyGridState() // remember grid's state
     val coroutineScope = rememberCoroutineScope()
 
-    // Показываем FAB(Floating Action Button) только если не на первом элементе.
+    // Show FAB if first visible item is not first item
     val showScrollToTopButton by remember {
         derivedStateOf { gridState.firstVisibleItemIndex > 1 }
     }
@@ -52,14 +52,14 @@ fun CharactersMainScreen(
         bottomBar = { /* Set bottom bar with navigation items (characters, locations, episodes) */},
         floatingActionButton = {
             AnimatedVisibility(visible = showScrollToTopButton) {
-                FloatingActionButton( // кнопка прокрутки к началу списка
+                FloatingActionButton(
                     onClick = {
                         coroutineScope.launch {
-                            gridState.animateScrollToItem(0) // прокрутка к началу
+                            gridState.animateScrollToItem(0)
                         }
                     },
-                    shape = CircleShape, // форма кнопки
-                    backgroundColor = Color.DarkGray // цвет кнопки
+                    shape = CircleShape,
+                    backgroundColor = Color.DarkGray
                 ) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowUp,
@@ -74,11 +74,11 @@ fun CharactersMainScreen(
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when (lazyPagingItems.loadState.refresh) {
                 is LoadState.Loading -> {
-                    // индикация загрузки при старте
+
                     CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                 }
                 is LoadState.Error -> {
-                    // экран ошибки при первоначальной загрузке
+
                     val e = lazyPagingItems.loadState.refresh as LoadState.Error
                     ErrorRetry(
                         message = e.error.localizedMessage ?: stringResource(R.string.unknown),
@@ -86,10 +86,10 @@ fun CharactersMainScreen(
                     )
                 }
                 else -> {
-                    // сам список
+
                     LazyVerticalGrid(
-                        state = gridState, // передаём состояние
-                        columns = GridCells.Adaptive(Sizes.size140), // GridCells могут быть определенны как Fixed(), Adaptive(), FixedSize()
+                        state = gridState,
+                        columns = GridCells.Adaptive(Sizes.size140), // GridCells can be defined as: Fixed(), Adaptive(), FixedSize()
                         contentPadding = PaddingValues(all = Spaces.space14),
                         verticalArrangement = Arrangement.spacedBy(Spaces.space14),
                         horizontalArrangement = Arrangement.spacedBy(Spaces.space14)
@@ -97,7 +97,7 @@ fun CharactersMainScreen(
                         items(lazyPagingItems.itemCount) { index ->
                             val character = lazyPagingItems[index]
                             character?.let {
-                                AnimatedVisibility( // Animation when card is loading
+                                AnimatedVisibility(
                                     visible = true,
                                     enter = fadeIn(animationSpec = tween(300)) + slideInVertically(),
                                     exit = fadeOut()
@@ -107,7 +107,7 @@ fun CharactersMainScreen(
 
                             }
                         }
-                        // отобразить индикатор внизу или кнопку retry
+
                         lazyPagingItems.apply {
                             when (loadState.append) {
                                 is LoadState.Loading -> item {
