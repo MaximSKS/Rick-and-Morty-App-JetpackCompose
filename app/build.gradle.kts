@@ -13,7 +13,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.mobile.rick_and_morty" //"com.mobile.jetpack_paging_rick_and_morty"
+        applicationId = "com.mobile.rick_and_morty"
         minSdk = 27
         targetSdk = 35
         versionCode = 1
