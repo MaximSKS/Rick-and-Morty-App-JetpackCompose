@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Jetpack_Paging_Rick_and_Morty"
+rootProject.name = "Rick_and_Morty" //"Jetpack_Paging_Rick_and_Morty"
 include(":app")
  

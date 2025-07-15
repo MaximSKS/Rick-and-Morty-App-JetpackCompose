@@ -14,11 +14,18 @@
     <string name="last_known_location_txt">Last known location:</string>
     <string name="species_and_gender_txt">Species and Gender:</string>
 
+    <!-- EpisodeDetailsScreen -->
+    <string name="characters_txt">Characters:</string>
+    <string name="episode_air_date_txt">Air Date:</string>
+    <string name="episode_code_txt">Episode Code:</string>
+    <string name="episode_created_txt">Created:</string>
+    <string name="episode_characters_txt">Characters:</string>
+
     <!-- Errors text -->
-    <string name="error_loading_characters">Error loading characters: %1$s</string>
+    <string name="error_loading">Loading error: %1$s</string>
     <string name="unknown">Unknown</string>
 
     <!-- Buttons text -->
-    <string name="retry">Retry</string>"
+    <string name="retry">Retry</string>
 
 </resources>

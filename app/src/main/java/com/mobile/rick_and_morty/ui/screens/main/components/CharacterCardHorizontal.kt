@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,7 +36,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.preview.mock.CharacterMock
 
 @Composable
-fun CharacterCard(
+fun CharacterCardHorizontal(
     modifier: Modifier = Modifier,
     character: Character,
     onCardClick: (characterId: Int) -> Unit
@@ -48,33 +51,51 @@ fun CharacterCard(
         onClick = { onCardClick(character.id) },
         elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4)
     ) {
-        Box {
-            Column(
-                modifier = Modifier.padding(bottom = Spaces.space8),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(Spaces.space12)
-            ) {
 
-                GradientColorSection()
-                NameText(text = character.name)
-                StatusTextWithIndicator(
-                    modifier = Modifier.padding(bottom = Spaces.space8),
-                    text = "Status: ${character.status.name}",
-                    statusColor = statusColor,
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = Spaces.space8),
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Spaces.space8,bottom = Spaces.space8),
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(space = Sizes.size30),
+                ) {
+
+                    GradientColorSection()
+
+                    Column(){
+
+                        NameText(text = character.name)
+
+                        StatusTextWithIndicator(
+                            modifier = Modifier.padding(bottom = Spaces.space8),
+                            text = "Status: ${character.status.name}",
+                            statusColor = statusColor,
+                        )
+                    }
+
+                }
+
+                AvatarWithStatusBorder(
+                    modifier = Modifier//.padding(top = Sizes.size8, bottom = Sizes.size8)
+                        .align(Alignment.TopStart)
+                        .absoluteOffset(x = Sizes.size30)
+                        .zIndex(1f),
+                    imageUrl = character.imageUrl,
+                    borderColor = statusColor,
+                    imageSize = Sizes.size70,
                 )
 
             }
-
-            AvatarWithStatusBorder(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .absoluteOffset(y = Sizes.size30)
-                    .zIndex(1f),
-                imageUrl = character.imageUrl,
-                borderColor = statusColor,
-            )
-
         }
+
+
 
     }
 }
@@ -84,9 +105,8 @@ private fun GradientColorSection(modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .fillMaxWidth()
             .padding(bottom = Spaces.space60)
-            .height(Sizes.size100)  //Gradient height
+            .width(Sizes.size100)
             .background(
                 Brush.linearGradient(
                     colors = gradientColorsFantasyLight
@@ -141,8 +161,8 @@ private fun StatusTextWithIndicator(
 
 @Preview
 @Composable
-fun CharacterCardPreview(modifier: Modifier = Modifier) {
-    CharacterCard(
+fun CharacterCardHorizontalPreview(modifier: Modifier = Modifier) {
+    CharacterCardHorizontal(
         character = CharacterMock.characterMockData,
         onCardClick = {}
     )

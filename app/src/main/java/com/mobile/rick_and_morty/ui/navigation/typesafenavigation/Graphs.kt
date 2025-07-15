@@ -12,7 +12,8 @@ import com.mobile.rick_and_morty.ui.screens.charactersmainscreen.CharactersMainS
 import com.mobile.rick_and_morty.ui.screens.episodes.EpisodesScreen
 import com.mobile.rick_and_morty.ui.screens.locations.LocationsScreen
 import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.CharacterMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,7 +26,7 @@ fun NavGraphBuilder.characterGraph(navController: NavHostController) {
 
             CharactersMainScreen(
                 modifier = Modifier,
-                viewModel = hiltViewModel<CharacterMainViewModel>(),
+                viewModel = hiltViewModel<CharactersMainViewModel>(),
                 navigateToCharacterDetailsScreen = { id ->
                     navController.navigate(CharacterDetails(id))
                 }
@@ -65,7 +66,13 @@ data object EpisodeGraph
 fun NavGraphBuilder.episodeGraph(navController: NavHostController) {
     navigation<EpisodeGraph>(startDestination = Episodes) {
         composable<Episodes> {
-            EpisodesScreen() // To do like composable<CharactersMain> {...}
+            EpisodesScreen(
+                modifier = Modifier,
+                viewModel = hiltViewModel<EpisodesViewModel>(),
+                navigateToEpisodeDetailsScreen = { id ->
+                    navController.navigate(EpisodeDetails(id))
+                }
+            )
         }
 
        // composable<EpisodeDetails> { // to do like composable<CharacterDetails> {...} }

@@ -5,6 +5,6 @@ import com.mobile.rick_and_morty.domain.model.Character
 
 import kotlinx.coroutines.flow.Flow
 
-interface CharacterRepository {
-    fun getCharactersStream(): Flow<PagingData<Character>>
+interface CharactersRepository {
+    fun getCharacters(): Flow<PagingData<Character>>
 }

@@ -3,6 +3,7 @@ package com.mobile.rick_and_morty.ui.designsystem.grid
 import androidx.compose.ui.unit.dp
 
 object Sizes {
+
     val size0 = 0.dp
     val size1 = 1.dp
     val size2 = 2.dp
@@ -22,6 +23,10 @@ object Sizes {
     val size32 = 32.dp
     val size34 = 34.dp
     val size36 = 36.dp
+    val size60 = 60.dp
+    val size65 = 65.dp
+    val size70 = 70.dp
+    val size75 = 75.dp
     val size83 = 83.dp
     val size100 = 100.dp
     val size120 = 120.dp

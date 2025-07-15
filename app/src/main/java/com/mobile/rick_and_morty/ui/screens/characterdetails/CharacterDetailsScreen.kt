@@ -48,6 +48,9 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.UiState
 import com.mobile.rick_and_morty.ui.screens.main.components.AvatarWithStatusBorder
 import com.mobile.rick_and_morty.ui.screens.main.components.CharacterStatusColor
+import com.mobile.rick_and_morty.ui.screens.main.components.EpisodeCard
+import com.mobile.rick_and_morty.ui.screens.main.components.HeaderText
+import com.mobile.rick_and_morty.ui.screens.main.components.InfoText
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
 
@@ -178,8 +181,7 @@ fun CharacterDetailsScreen(
                             items(items = episodes, key = { it.id }) { episode ->
                                 EpisodeCard(
                                     modifier = Modifier
-                                        .padding(horizontal = Spaces.space16)
-                                        .padding(top = Spaces.space10, end = Spaces.space5),
+                                        .padding(horizontal = Spaces.space16, vertical = Spaces.space5),
                                     episodeId = episode.id,
                                     episodeName = episode.name,
                                     airDate = episode.airDate,
@@ -196,23 +198,23 @@ fun CharacterDetailsScreen(
 }
 
 
-@Composable
-private fun HeaderText(
-    modifier: Modifier = Modifier,
-    text: String,
-    fontSize: TextUnit = 25.sp,
-    maxLines: Int = 1,
-    overflow: TextOverflow = TextOverflow.Ellipsis
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = fontSize,
-        maxLines = maxLines,
-        overflow = overflow,
-    )
-}
+//@Composable
+// fun HeaderText(
+//    modifier: Modifier = Modifier,
+//    text: String,
+//    fontSize: TextUnit = 25.sp,
+//    maxLines: Int = 1,
+//    overflow: TextOverflow = TextOverflow.Ellipsis
+//) {
+//    Text(
+//        modifier = modifier,
+//        text = text,
+//        fontWeight = FontWeight.Bold,
+//        fontSize = fontSize,
+//        maxLines = maxLines,
+//        overflow = overflow,
+//    )
+//}
 
 @Composable
 private fun CharacterHeaderSection(
@@ -266,38 +268,38 @@ private fun CharacterHeaderSection(
 }
 
 
-@Composable
-private fun InfoText(
-    modifier: Modifier = Modifier,
-    headingText: String,
-    infoText: String,
-    infoTextFontSize: TextUnit = 16.sp,
-    maxLines: Int = 1,
-    overflow: TextOverflow = TextOverflow.Ellipsis
-) {
-
-    Column(
-        verticalArrangement = Arrangement.spacedBy(space = Spaces.space6),
-        horizontalAlignment = Alignment.Start,
-    ) {
-        Text(
-            modifier = modifier,
-            text = headingText,
-            fontSize = 14.sp,
-            color = Color.Gray,
-        )
-
-        Text(
-            text = infoText,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = infoTextFontSize,
-            maxLines = maxLines,
-            overflow = overflow,
-        )
-
-    }
-
-}
+//@Composable
+//private fun InfoText(
+//    modifier: Modifier = Modifier,
+//    headingText: String,
+//    infoText: String,
+//    infoTextFontSize: TextUnit = 16.sp,
+//    maxLines: Int = 1,
+//    overflow: TextOverflow = TextOverflow.Ellipsis
+//) {
+//
+//    Column(
+//        verticalArrangement = Arrangement.spacedBy(space = Spaces.space6),
+//        horizontalAlignment = Alignment.Start,
+//    ) {
+//        Text(
+//            modifier = modifier,
+//            text = headingText,
+//            fontSize = 14.sp,
+//            color = Color.Gray,
+//        )
+//
+//        Text(
+//            text = infoText,
+//            fontWeight = FontWeight.SemiBold,
+//            fontSize = infoTextFontSize,
+//            maxLines = maxLines,
+//            overflow = overflow,
+//        )
+//
+//    }
+//
+//}
 
 
 @Composable
@@ -370,44 +372,44 @@ private fun CharacterInfoSection(
 }
 
 
-@Composable
-private fun EpisodeCard(
-    modifier: Modifier = Modifier,
-    episodeId: Int,
-    episodeName: String,
-    airDate: String,
-    episodeCode: String,
-    onCardClick: (episodeId: Int) -> Unit
-) {
-    Card(
-        modifier = modifier,
-        shape = RickMortyShapes.small,
-        // colors = CardDefaults.cardColors(Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
-        onClick = { onCardClick(episodeId) }
-    ) {
-        Column(
-            modifier = Modifier.padding(vertical = Spaces.space8, horizontal = Spaces.space10),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(Spaces.space6),
-        ) {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = episodeName,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(text = episodeCode)
-
-            }
-
-            Text(text = airDate)
-        }
-    }
-}
+//@Composable
+// fun EpisodeCard(
+//    modifier: Modifier = Modifier,
+//    episodeId: Int,
+//    episodeName: String,
+//    airDate: String,
+//    episodeCode: String,
+//    onCardClick: (episodeId: Int) -> Unit
+//) {
+//    Card(
+//        modifier = modifier,
+//        shape = RickMortyShapes.small,
+//        // colors = CardDefaults.cardColors(Color.White),
+//        elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
+//        onClick = { onCardClick(episodeId) }
+//    ) {
+//        Column(
+//            modifier = Modifier.padding(vertical = Spaces.space8, horizontal = Spaces.space10),
+//            horizontalAlignment = Alignment.Start,
+//            verticalArrangement = Arrangement.spacedBy(Spaces.space6),
+//        ) {
+//
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
+//            ) {
+//                Text(
+//                    modifier = Modifier.weight(1f),
+//                    text = episodeName,
+//                    fontSize = 16.sp,
+//                    fontWeight = FontWeight.SemiBold,
+//                    overflow = TextOverflow.Ellipsis
+//                )
+//                Text(text = episodeCode)
+//
+//            }
+//
+//            Text(text = airDate)
+//        }
+//    }
+//}

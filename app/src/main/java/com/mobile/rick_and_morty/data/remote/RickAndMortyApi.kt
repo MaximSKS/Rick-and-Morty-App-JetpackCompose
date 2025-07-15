@@ -3,6 +3,7 @@ package com.mobile.rick_and_morty.data.remote
 import com.mobile.rick_and_morty.data.model.CharacterDto
 import com.mobile.rick_and_morty.data.model.CharactersPageDto
 import com.mobile.rick_and_morty.data.model.EpisodeDto
+import com.mobile.rick_and_morty.data.model.EpisodesPageDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,6 +14,9 @@ interface RickAndMortyApi {
 
     @GET("character/{id}")
     suspend fun getCharacter(@Path("id") id: Int): CharacterDto
+
+    @GET("episode")
+    suspend fun getEpisodes(@Query("page") page: Int): EpisodesPageDto
 
     @GET("episode/{id}")
     suspend fun getEpisodeById(@Path("id") id: Int): EpisodeDto

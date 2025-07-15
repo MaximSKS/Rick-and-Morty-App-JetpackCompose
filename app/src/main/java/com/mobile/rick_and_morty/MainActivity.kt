@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mobile.rick_and_morty.ui.designsystem.Jetpack_Paging_Rick_and_MortyTheme
+import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.navigation.typesafenavigation.RickMortyNavGraph
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import dagger.hilt.android.AndroidEntryPoint

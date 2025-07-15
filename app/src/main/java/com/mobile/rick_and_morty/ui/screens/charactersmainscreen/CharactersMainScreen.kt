@@ -25,15 +25,16 @@ import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCard
+import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.CharacterMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun CharactersMainScreen(
     modifier: Modifier = Modifier,
-    viewModel: CharacterMainViewModel,
+    viewModel: CharactersMainViewModel,
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
     val lazyPagingItems = viewModel.characters.collectAsLazyPagingItems()
@@ -134,17 +135,17 @@ fun CharactersMainScreen(
 }
 
 
-@Composable
-private fun ErrorRetry(modifier: Modifier = Modifier,message: String, onRetry: () -> Unit) {
-    Column(
-        modifier = modifier.fillMaxSize().wrapContentSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = stringResource(R.string.error_loading_characters, message))
-
-        Button( modifier = modifier.padding(top = Spaces.space8),
-            onClick = onRetry) {
-            Text(text = stringResource(R.string.retry))
-        }
-    }
-}
+//@Composable
+//fun ErrorRetry(modifier: Modifier = Modifier, message: String, onRetry: () -> Unit) {
+//    Column(
+//        modifier = modifier.fillMaxSize().wrapContentSize(),
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        Text(text = stringResource(R.string.error_loading, message))
+//
+//        Button( modifier = modifier.padding(top = Spaces.space8),
+//            onClick = onRetry) {
+//            Text(text = stringResource(R.string.retry))
+//        }
+//    }
+//}

@@ -33,19 +33,18 @@ import com.mobile.rick_and_morty.ui.navigation.typesafenavigation.EpisodeGraph
 import com.mobile.rick_and_morty.ui.navigation.typesafenavigation.LocationGraph
 
 @Composable
-fun BottomNavBar(modifier: Modifier = Modifier, navController: NavHostController) {
+fun BottomNavBar(modifier: Modifier = Modifier , navController: NavHostController) {
 
     val bottomNavDestinations = listOf(CharacterGraph, LocationGraph, EpisodeGraph)
 
     Box(
-        modifier = Modifier
+        modifier = Modifier.padding(top = Spaces.space2)
             .navigationBarsPadding()
             .background(brush = Brush.linearGradient(colors = gradientColorsFantasyLight)),
         contentAlignment = Alignment.Center
     ) {
         BottomNavigation(
             modifier = Modifier.background(color = Color.Black),
-
 
             ) {
             val entry by navController.currentBackStackEntryAsState()
