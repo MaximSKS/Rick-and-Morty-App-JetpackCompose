@@ -33,7 +33,6 @@ private fun EpisodeInfoSection(
         stringResource(R.string.episode_air_date_txt) to episode.airDate,
         stringResource(R.string.episode_code_txt) to episode.episodeCode,
         stringResource(R.string.episode_created_txt) to episode.created,
-        //stringResource(R.string.episode_characters_txt) to episode.characters, /* TODO: Add characters card (horizontal) */
     )
 
     Column(

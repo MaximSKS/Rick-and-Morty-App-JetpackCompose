@@ -4,10 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.mobile.rick_and_morty.domain.model.Character
@@ -51,25 +50,23 @@ fun CharacterCardHorizontal(
         onClick = { onCardClick(character.id) },
         elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4)
     ) {
+            Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = Spaces.space8),
-        ){
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Spaces.space8,bottom = Spaces.space8),
-            ) {
+                GradientColorSection(modifier = Modifier.align(Alignment.CenterStart))
+
                 Row(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .padding(start = Sizes.size70 + Spaces.space8)
+                        .zIndex(0f),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(space = Sizes.size30),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
 
-                    GradientColorSection()
-
-                    Column(){
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(space = Spaces.space8)
+                    ){
 
                         NameText(text = character.name)
 
@@ -83,9 +80,10 @@ fun CharacterCardHorizontal(
                 }
 
                 AvatarWithStatusBorder(
-                    modifier = Modifier//.padding(top = Sizes.size8, bottom = Sizes.size8)
-                        .align(Alignment.TopStart)
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
                         .absoluteOffset(x = Sizes.size30)
+                        .padding(vertical = Spaces.space10,)
                         .zIndex(1f),
                     imageUrl = character.imageUrl,
                     borderColor = statusColor,
@@ -93,29 +91,20 @@ fun CharacterCardHorizontal(
                 )
 
             }
-        }
-
-
 
     }
 }
 
 @Composable
 private fun GradientColorSection(modifier: Modifier = Modifier) {
-
     Box(
         modifier = modifier
-            .padding(bottom = Spaces.space60)
-            .width(Sizes.size100)
-            .background(
-                Brush.linearGradient(
-                    colors = gradientColorsFantasyLight
-                )
-            ),
-        contentAlignment = Alignment.Center
-    ) {}
+            .fillMaxHeight()
+            .width(Sizes.size120 / 2 + Spaces.space8)
+            .background(Brush.linearGradient(colors = gradientColorsFantasyLight))
+            .zIndex(0f)
+    )
 }
-
 
 @Composable
 private fun NameText(
@@ -150,7 +139,7 @@ private fun StatusTextWithIndicator(
             color = Color.Black,
             modifier = modifier.padding(horizontal = Spaces.space8)
         )
-        // Status indicator
+
         Box(
             modifier = modifier
                 .size(Sizes.size6)
