@@ -9,10 +9,12 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.mobile.rick_and_morty.ui.screens.characterdetails.CharacterDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.charactersmainscreen.CharactersMainScreen
+import com.mobile.rick_and_morty.ui.screens.episodes.EpisodeDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.episodes.EpisodesScreen
 import com.mobile.rick_and_morty.ui.screens.locations.LocationsScreen
 import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
 import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.EpisodeDetailsViewModel
 import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
 import kotlinx.serialization.Serializable
 
@@ -64,6 +66,7 @@ fun NavGraphBuilder.locationGraph(navController: NavHostController) {
 data object EpisodeGraph
 
 fun NavGraphBuilder.episodeGraph(navController: NavHostController) {
+
     navigation<EpisodeGraph>(startDestination = Episodes) {
         composable<Episodes> {
             EpisodesScreen(
@@ -75,6 +78,14 @@ fun NavGraphBuilder.episodeGraph(navController: NavHostController) {
             )
         }
 
-       // composable<EpisodeDetails> { // to do like composable<CharacterDetails> {...} }
+        composable<EpisodeDetails> { backStackEntry ->
+            val scrDetails: EpisodeDetails = backStackEntry.toRoute()
+
+            EpisodeDetailsScreen(
+                episodeId = scrDetails.id,
+                viewModel = hiltViewModel<EpisodeDetailsViewModel>(),
+                navigateToEpisodesScreen = { navController.navigateUp() }
+            )
+        }
     }
 }

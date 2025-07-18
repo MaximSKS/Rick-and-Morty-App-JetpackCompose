@@ -134,7 +134,7 @@ fun EpisodesScreen(
                                 ) {
                                     EpisodeCard2(
                                         episode = it,
-                                        onCardClick = { /*navigateToEpisodeDetailsScreen(it)*/ }
+                                        onCardClick = { navigateToEpisodeDetailsScreen(it) }
                                     )
                                 }
                             }

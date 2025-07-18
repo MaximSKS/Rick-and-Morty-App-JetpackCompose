@@ -7,7 +7,7 @@ import com.mobile.rick_and_morty.domain.model.Episode
 import com.mobile.rick_and_morty.domain.repository.CharacterDetailsRepository
 import com.mobile.rick_and_morty.domain.repository.EpisodeRepository
 import com.mobile.rick_and_morty.ui.screens.main.UiState
-import com.mobile.rick_and_morty.utils.extractEpisodeIds
+import com.mobile.rick_and_morty.utils.extractIds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
-    private val characterRepository: CharacterDetailsRepository,
+    private val characterDetailsRepository: CharacterDetailsRepository,
     private val episodeRepository: EpisodeRepository
 ): ViewModel() {
 
@@ -32,7 +32,7 @@ class CharacterDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             _characterState.value = UiState.Loading
             try {
-                val character = characterRepository.getCharacterById(id)
+                val character = characterDetailsRepository.getCharacterById(id)
                 _characterState.value = UiState.Success(character)
             } catch (e: Exception) {
                 _characterState.value = UiState.Error(e.localizedMessage ?: "Unknown error")
@@ -41,7 +41,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun loadEpisodes(episodeUrls: List<String>) {
-        val episodeIds = extractEpisodeIds(episodeUrls)
+        val episodeIds = extractIds(episodeUrls)
 
         if(episodeIds.isEmpty()) {
            _episodesState.value = UiState.Success(emptyList())

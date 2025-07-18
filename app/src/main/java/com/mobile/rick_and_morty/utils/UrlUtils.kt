@@ -1,8 +1,8 @@
 package com.mobile.rick_and_morty.utils
 
-/**[extractEpisodeIds] - утилитная ф-ция (helper), которая будет извлекать ID из URL **/
-fun extractEpisodeIds(episodeUrls: List<String>): List<Int> {
-    return episodeUrls.mapNotNull { url ->
+/**[extractIds] - утилитная ф-ция (helper), которая будет извлекать ID из URL **/
+fun extractIds(urls: List<String>): List<Int> {
+    return urls.mapNotNull { url ->
         url.substringAfterLast("/").toIntOrNull()
     }
 }

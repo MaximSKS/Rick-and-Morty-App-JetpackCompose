@@ -15,11 +15,15 @@ interface RickAndMortyApi {
     @GET("character/{id}")
     suspend fun getCharacter(@Path("id") id: Int): CharacterDto
 
+    // for displaying specific characters on the EpisodeDetailsScreen
+    @GET("character/{ids}")
+    suspend fun getCharactersByIds(@Path("ids") ids: String): List<CharacterDto>
+
     @GET("episode")
     suspend fun getEpisodes(@Query("page") page: Int): EpisodesPageDto
 
     @GET("episode/{id}")
-    suspend fun getEpisodeById(@Path("id") id: Int): EpisodeDto
+    suspend fun getEpisode(@Path("id") id: Int): EpisodeDto
 
     @GET("episode/{ids}")
     suspend fun getEpisodesByIds(@Path("ids") ids: String): List<EpisodeDto>

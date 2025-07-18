@@ -186,7 +186,7 @@ fun CharacterDetailsScreen(
                                     episodeName = episode.name,
                                     airDate = episode.airDate,
                                     episodeCode = episode.episodeCode
-                                ) { /* episode onClick */ }
+                                ) { }
                             }
 
                         }
