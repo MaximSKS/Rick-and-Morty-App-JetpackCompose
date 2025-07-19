@@ -43,6 +43,7 @@ fun EpisodeDetailsScreen(
     episodeId: Int,
     viewModel: EpisodeDetailsViewModel,
     navigateToEpisodesScreen: () -> Unit,
+    navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
     val episodeState by viewModel.episodeState.collectAsState()
     val charactersState by viewModel.charactersState.collectAsState()
@@ -160,7 +161,8 @@ fun EpisodeDetailsScreen(
                                     modifier = Modifier
                                         .padding(horizontal = Spaces.space16, vertical = Spaces.space5),
                                     character = character,
-                                ) { }
+                                    onCardClick = { navigateToCharacterDetailsScreen(character.id) }
+                                )
                             }
 
                         }

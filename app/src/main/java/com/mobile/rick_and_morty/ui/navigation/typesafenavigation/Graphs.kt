@@ -41,7 +41,10 @@ fun NavGraphBuilder.characterGraph(navController: NavHostController) {
             CharacterDetailsScreen(
                 characterId = scrDetails.id,
                 viewModel = hiltViewModel<CharacterDetailsViewModel>(),
-                navigateToCharactersMainScreen = { navController.navigateUp() }
+                navigateToCharactersMainScreen = { navController.navigateUp() },
+                navigateToEpisodeDetailsScreen = { id ->
+                    navController.navigate(EpisodeDetails(id))
+                }
             )
         }
     }
@@ -84,8 +87,13 @@ fun NavGraphBuilder.episodeGraph(navController: NavHostController) {
             EpisodeDetailsScreen(
                 episodeId = scrDetails.id,
                 viewModel = hiltViewModel<EpisodeDetailsViewModel>(),
-                navigateToEpisodesScreen = { navController.navigateUp() }
+                navigateToEpisodesScreen = { navController.navigateUp() },
+                navigateToCharacterDetailsScreen = { id ->
+                    navController.navigate(CharacterDetails(id))
+                }
+
             )
         }
+
     }
 }

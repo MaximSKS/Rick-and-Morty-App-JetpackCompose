@@ -59,6 +59,7 @@ fun CharacterDetailsScreen(
     characterId: Int,
     viewModel: CharacterDetailsViewModel,
     navigateToCharactersMainScreen: () -> Unit,
+    navigateToEpisodeDetailsScreen: (episodeId: Int) -> Unit,
 ) {
     val characterState by viewModel.characterState.collectAsState()
     val episodesState by viewModel.episodesState.collectAsState()
@@ -185,8 +186,9 @@ fun CharacterDetailsScreen(
                                     episodeId = episode.id,
                                     episodeName = episode.name,
                                     airDate = episode.airDate,
-                                    episodeCode = episode.episodeCode
-                                ) { }
+                                    episodeCode = episode.episodeCode,
+                                    onCardClick = { navigateToEpisodeDetailsScreen(episode.id) }
+                                )
                             }
 
                         }
