@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.*
 import com.mobile.rick_and_morty.R
@@ -26,6 +27,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCard
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
+import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +38,7 @@ fun CharactersMainScreen(
     modifier: Modifier = Modifier,
     viewModel: CharactersMainViewModel,
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
+    navController: NavHostController
 ) {
     val lazyPagingItems = viewModel.characters.collectAsLazyPagingItems()
     val gridState = rememberLazyGridState() // remember grid's state
@@ -50,7 +53,8 @@ fun CharactersMainScreen(
         //Modifier.fillMaxSize().systemBarsPadding(),
         topBar = { TopBar(title = stringResource(R.string.top_btm_bar_characters_txt)) },
         //modifier = Modifier.fillMaxWidth().statusBarsPadding(),
-        bottomBar = { /* Set bottom bar with navigation items (characters, locations, episodes) */},
+        bottomBar = { BottomNavBar(modifier = Modifier.fillMaxWidth(), navController = navController)
+        },
         floatingActionButton = {
             AnimatedVisibility(visible = showScrollToTopButton) {
                 FloatingActionButton(

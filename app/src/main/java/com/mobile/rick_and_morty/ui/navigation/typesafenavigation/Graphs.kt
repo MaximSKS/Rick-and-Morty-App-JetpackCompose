@@ -31,7 +31,8 @@ fun NavGraphBuilder.characterGraph(navController: NavHostController) {
                 viewModel = hiltViewModel<CharactersMainViewModel>(),
                 navigateToCharacterDetailsScreen = { id ->
                     navController.navigate(CharacterDetails(id))
-                }
+                },
+                navController = navController
             )
         }
 
@@ -57,7 +58,7 @@ data object LocationGraph
 fun NavGraphBuilder.locationGraph(navController: NavHostController) {
     navigation<LocationGraph>(startDestination = Locations) {
         composable<Locations> {
-            LocationsScreen() // To do like composable<CharactersMain> {...}
+            LocationsScreen(navController = navController) // To do like composable<CharactersMain> {...}
         }
 
         //composable<LocationDetails> { // to do like composable<CharacterDetails> {...} }
@@ -77,7 +78,8 @@ fun NavGraphBuilder.episodeGraph(navController: NavHostController) {
                 viewModel = hiltViewModel<EpisodesViewModel>(),
                 navigateToEpisodeDetailsScreen = { id ->
                     navController.navigate(EpisodeDetails(id))
-                }
+                },
+                navController = navController
             )
         }
 

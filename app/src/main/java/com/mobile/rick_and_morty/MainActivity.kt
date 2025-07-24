@@ -23,20 +23,19 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Jetpack_Paging_Rick_and_MortyTheme {
-                val navController = rememberNavController()
+              //  val navController = rememberNavController()
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        BottomNavBar(
-                            modifier = Modifier.fillMaxWidth(),
-                            navController = navController
-                        )
-                    }
+                   // modifier = Modifier.fillMaxSize(),
+//                    bottomBar = {
+//                        BottomNavBar(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            navController = navController
+//                        )
+//                    }
                 ) { innerPadding ->
 
                     RickMortyNavGraph(
                         modifier = Modifier.padding(innerPadding),
-                        navController = navController
                     )
                 }
 

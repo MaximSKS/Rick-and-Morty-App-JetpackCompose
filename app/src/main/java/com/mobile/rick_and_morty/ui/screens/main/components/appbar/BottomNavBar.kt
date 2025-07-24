@@ -24,6 +24,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
 import com.mobile.rick_and_morty.ui.designsystem.colors.primaryWhite
@@ -33,7 +34,10 @@ import com.mobile.rick_and_morty.ui.navigation.typesafenavigation.EpisodeGraph
 import com.mobile.rick_and_morty.ui.navigation.typesafenavigation.LocationGraph
 
 @Composable
-fun BottomNavBar(modifier: Modifier = Modifier , navController: NavHostController) {
+fun BottomNavBar(
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
 
     val bottomNavDestinations = listOf(CharacterGraph, LocationGraph, EpisodeGraph)
 

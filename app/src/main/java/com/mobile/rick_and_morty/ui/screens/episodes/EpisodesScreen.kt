@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.mobile.rick_and_morty.R
@@ -47,20 +48,21 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
+import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
 import kotlinx.coroutines.launch
 
-//Test episodes screen for bottom nav bar. Will be implemented later.
 @Composable
 fun EpisodesScreen(
     modifier: Modifier = Modifier,
     viewModel: EpisodesViewModel,
     navigateToEpisodeDetailsScreen: (episodeId: Int) -> Unit,
+    navController: NavHostController
 ) {
     val lazyPagingItems = viewModel.episodes.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
+    val listState =  rememberLazyListState()
     // Show FAB if first visible item is not first item
     val showScrollToTopButton by remember {
         derivedStateOf { listState.firstVisibleItemIndex > 1 }
@@ -70,7 +72,7 @@ fun EpisodesScreen(
         //Modifier.fillMaxSize().systemBarsPadding(),
         topBar = { TopBar(title = stringResource(R.string.top_btm_bar_episodes_txt)) },
         //modifier = Modifier.fillMaxWidth().statusBarsPadding(),
-        bottomBar = { /* Set bottom bar with navigation items (characters, locations, episodes) */ },
+        bottomBar = {  BottomNavBar(modifier = Modifier.fillMaxWidth(), navController = navController) },
         floatingActionButton = {
             AnimatedVisibility(visible = showScrollToTopButton) {
                 FloatingActionButton(
@@ -99,13 +101,7 @@ fun EpisodesScreen(
         ) {
             when (lazyPagingItems.loadState.refresh) {
                 is LoadState.Loading -> {
-
-                    //CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
-                    LinearProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize()
-                    )
+                    CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                 }
 
                 is LoadState.Error -> {
@@ -120,6 +116,7 @@ fun EpisodesScreen(
                 else -> {
 
                     LazyColumn(
+                        state = listState,
                         contentPadding = PaddingValues(all = Spaces.space14),
                         verticalArrangement = Arrangement.spacedBy(Spaces.space14),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -188,7 +185,7 @@ fun EpisodesScreen(
                 Card(
                     modifier = modifier,
                     shape = RickMortyShapes.small,
-                    // colors = CardDefaults.cardColors(Color.White),
+                    colors = CardDefaults.cardColors(Color.White),
                     elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
                     onClick = { onCardClick(episode.id) }
                 ) {
