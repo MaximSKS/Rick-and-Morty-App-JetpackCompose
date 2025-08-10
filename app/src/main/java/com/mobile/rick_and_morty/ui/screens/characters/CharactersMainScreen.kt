@@ -1,4 +1,4 @@
-package com.mobile.rick_and_morty.ui.screens.charactersmainscreen
+package com.mobile.rick_and_morty.ui.screens.characters
 
 
 import androidx.compose.animation.AnimatedVisibility
@@ -15,7 +15,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -101,7 +100,7 @@ fun CharactersMainScreen(
                     ) {
                         items(lazyPagingItems.itemCount) { index ->
                             val character = lazyPagingItems[index]
-                            character?.let {
+                            character?.let { it ->
                                 AnimatedVisibility(
                                     visible = true,
                                     enter = fadeIn(animationSpec = tween(300)) + slideInVertically(),

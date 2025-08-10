@@ -9,11 +9,11 @@ import androidx.navigation.compose.rememberNavController
 /* NavGraph for Rick and Morty app */
 @Composable
 fun RickMortyNavGraph(
-    modifier: Modifier = Modifier,
+   // modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
     NavHost(
-        modifier = modifier,
+        //modifier = modifier,
         navController = navController,
         startDestination = CharacterGraph
     ) {

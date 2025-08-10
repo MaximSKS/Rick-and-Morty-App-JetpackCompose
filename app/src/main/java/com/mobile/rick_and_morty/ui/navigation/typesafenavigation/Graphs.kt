@@ -7,15 +7,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.mobile.rick_and_morty.ui.screens.characterdetails.CharacterDetailsScreen
-import com.mobile.rick_and_morty.ui.screens.charactersmainscreen.CharactersMainScreen
+import com.mobile.rick_and_morty.ui.screens.characters.CharacterDetailsScreen
+import com.mobile.rick_and_morty.ui.screens.characters.CharactersMainScreen
 import com.mobile.rick_and_morty.ui.screens.episodes.EpisodeDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.episodes.EpisodesScreen
+import com.mobile.rick_and_morty.ui.screens.locations.LocationDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.locations.LocationsScreen
 import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
 import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
 import com.mobile.rick_and_morty.ui.viewmodel.EpisodeDetailsViewModel
 import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.LocationDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.LocationsViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -58,10 +61,26 @@ data object LocationGraph
 fun NavGraphBuilder.locationGraph(navController: NavHostController) {
     navigation<LocationGraph>(startDestination = Locations) {
         composable<Locations> {
-            LocationsScreen(navController = navController) // To do like composable<CharactersMain> {...}
+            LocationsScreen(
+                viewModel = hiltViewModel<LocationsViewModel>(),
+                navigateToLocationDetailsScreen = { id -> navController.navigate(LocationDetails(id)) },
+                navController = navController
+            )
         }
 
-        //composable<LocationDetails> { // to do like composable<CharacterDetails> {...} }
+        composable<LocationDetails> { backStackEntry ->
+            val scrDetails: LocationDetails = backStackEntry.toRoute()
+
+            LocationDetailsScreen(
+                locationId = scrDetails.id,
+                viewModel = hiltViewModel<LocationDetailsViewModel>(),
+                navigateToLocationsScreen = { navController.navigateUp() },
+                navigateToCharacterDetailsScreen = { id ->
+                    navController.navigate(CharacterDetails(id))
+                }
+
+            )
+        }
     }
 }
 

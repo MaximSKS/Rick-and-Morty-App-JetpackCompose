@@ -14,6 +14,7 @@ fun CharacterDto.toDomain(): Character {
         gender = Gender.fromString(gender),
         imageUrl = image,
         episodeUrls = episode,
+        origin = origin.name,
         locationName = location.name
     )
 }

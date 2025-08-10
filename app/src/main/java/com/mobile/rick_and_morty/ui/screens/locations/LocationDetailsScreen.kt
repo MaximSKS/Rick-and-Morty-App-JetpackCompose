@@ -1,4 +1,5 @@
-package com.mobile.rick_and_morty.ui.screens.episodes
+package com.mobile.rick_and_morty.ui.screens.locations
+
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -6,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
@@ -25,12 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.mobile.rick_and_morty.R
-import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.domain.model.Episode
+import com.mobile.rick_and_morty.domain.model.Location
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.UiState
@@ -38,23 +37,23 @@ import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCardHorizon
 import com.mobile.rick_and_morty.ui.screens.main.components.HeaderText
 import com.mobile.rick_and_morty.ui.screens.main.components.InfoText
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.EpisodeDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.LocationDetailsViewModel
 
 @Composable
-fun EpisodeDetailsScreen(
-    episodeId: Int,
-    viewModel: EpisodeDetailsViewModel,
-    navigateToEpisodesScreen: () -> Unit,
+fun LocationDetailsScreen(
+    locationId: Int,
+    viewModel: LocationDetailsViewModel,
+    navigateToLocationsScreen: () -> Unit,
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
-    val episodeState by viewModel.episodeState.collectAsState()
+    val locationState by viewModel.locationState.collectAsState()
     val charactersState by viewModel.charactersState.collectAsState()
 
-    LaunchedEffect(episodeId) {
-        viewModel.loadEpisode(episodeId)
+    LaunchedEffect(locationId) {
+        viewModel.loadLocation(locationId)
     }
 
-    when (episodeState) {
+    when (locationState) {
 
         is UiState.Loading -> {
 
@@ -64,7 +63,7 @@ fun EpisodeDetailsScreen(
         }
 
         is UiState.Error -> {
-            val message = (episodeState as UiState.Error).message
+            val message = (locationState as UiState.Error).message
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = message, color = Color.Red)
             }
@@ -72,10 +71,10 @@ fun EpisodeDetailsScreen(
 
         is UiState.Success -> {
 
-            val episode = (episodeState as UiState.Success).data
+            val location = (locationState as UiState.Success).data
 
-            LaunchedEffect(episode) {
-                viewModel.loadCharacters(episode.characters)
+            LaunchedEffect(location) {
+                viewModel.loadCharacters(location.residents)
             }
 
             Scaffold(
@@ -84,11 +83,11 @@ fun EpisodeDetailsScreen(
 
                     TopBar(
                         // modifier = Modifier.fillMaxWidth().statusBarsPadding(),
-                        title = "Episode details",
+                        title = "Location details",
                         navigationIcon =
                             {
                                 IconButton(
-                                    onClick = { navigateToEpisodesScreen() },
+                                    onClick = { navigateToLocationsScreen() },
                                     content = {
                                         Icon(
                                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -108,13 +107,11 @@ fun EpisodeDetailsScreen(
                 ) {
 
                     item {
-                        EpisodeHeaderSection(episode = episode)
+                        LocationHeaderSection(location = location)
                     }
 
                     item{
-                        EpisodeInfoSection(
-                            episode = episode
-                        )
+                        LocationInfoSection(location = location)
                     }
 
                     item {
@@ -123,7 +120,7 @@ fun EpisodeDetailsScreen(
                                 .padding(top = Spaces.space20, bottom = Spaces.space20),
                             align = Alignment.Start,
                             fontSize = 18.sp,
-                            text = stringResource(R.string.characters_txt)
+                            text = stringResource(R.string.location_residents_txt)
                         )
                     }
 
@@ -174,40 +171,40 @@ fun EpisodeDetailsScreen(
 }
 
 @Composable
-private fun EpisodeHeaderSection(
+private fun LocationHeaderSection(
     modifier: Modifier = Modifier,
-    episode: Episode,
+    location: Location,
 ) {
-        Column(
-            modifier = modifier.padding(top = Spaces.space40),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(Spaces.space12)
-        ) {
-            HeaderText(
-                //modifier = modifier.padding(horizontal = Spaces.space20),
-                text = episode.name,
-                overflow = TextOverflow.Visible,
-               // maxLines = 2
-            )
+    Column(
+        modifier = modifier.padding(top = Spaces.space40),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(Spaces.space12)
+    ) {
+        HeaderText(
+            //modifier = modifier.padding(horizontal = Spaces.space20),
+            text = location.name,
+            overflow = TextOverflow.Visible,
+            // maxLines = 2
+        )
 
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                thickness = Sizes.size1,
-                color = Color.LightGray
-            )
-        }
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = Sizes.size1,
+            color = Color.LightGray
+        )
+    }
 }
 
 
 @Composable
-private fun EpisodeInfoSection(
+private fun LocationInfoSection(
     modifier: Modifier = Modifier,
-    episode: Episode,
+    location: Location,
 
-) {
+    ) {
     val infoList = listOf(
-        stringResource(R.string.episode_air_date_txt) to episode.airDate,
-        stringResource(R.string.episode_code_txt) to episode.episodeCode,
+        stringResource(R.string.location_type_txt) to location.type,
+        stringResource(R.string.location_dimension_txt) to location.dimension,
     )
 
     Column(

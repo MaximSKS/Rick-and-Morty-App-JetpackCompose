@@ -12,5 +12,6 @@ data class CharacterDto(
     val gender: String,
     val image: String,
     val episode: List<String>,
-    val location: LocationDto
+    val origin: CharacterOriginDto,
+    val location: CharacterLocationDto
 )

@@ -1,4 +1,4 @@
-package com.mobile.rick_and_morty.ui.screens.characterdetails
+package com.mobile.rick_and_morty.ui.screens.characters
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -20,8 +21,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,15 +33,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
-import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.UiState
@@ -140,12 +137,11 @@ fun CharacterDetailsScreen(
 
                     item {
                         HeaderText(
-                            modifier = Modifier.padding(
-                                start = Spaces.space20,
-                                top = Spaces.space20,
-                                bottom = Spaces.space20
-                            ),
+                            modifier = Modifier
+                                .padding(top = Spaces.space20, bottom = Spaces.space20),
+                            align = Alignment.Start,
                             fontSize = 18.sp,
+                            //textAlign = TextAlign.Start,
                             text = stringResource(R.string.episodes_txt)
                         )
                     }
@@ -262,7 +258,7 @@ private fun CharacterHeaderSection(
                 .align(Alignment.TopCenter)
                 .absoluteOffset(y = 50.dp)
                 .zIndex(1f),
-            imageUrl = character.imageUrl ?: "",
+            imageUrl = character.imageUrl,
             imageSize = Sizes.size250,
             borderColor = statusColor
         )
@@ -351,8 +347,9 @@ private fun CharacterInfoSection(
 ) {
     val infoList = listOf(
         stringResource(R.string.species_and_gender_txt) to "${character.species} (${character.gender.name})",
+        stringResource(R.string.origin_txt) to character.origin,
+        stringResource(R.string.first_seen_in_txt) to character.name,
         stringResource(R.string.last_known_location_txt) to character.locationName,
-        stringResource(R.string.first_seen_in_txt) to character.name
     )
 
     Column(

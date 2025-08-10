@@ -23,8 +23,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Jetpack_Paging_Rick_and_MortyTheme {
+                RickMortyNavGraph()
               //  val navController = rememberNavController()
-                Scaffold(
+//                Scaffold(
                    // modifier = Modifier.fillMaxSize(),
 //                    bottomBar = {
 //                        BottomNavBar(
@@ -32,14 +33,14 @@ class MainActivity : ComponentActivity() {
 //                            navController = navController
 //                        )
 //                    }
-                ) { innerPadding ->
+//                ) { innerPadding ->
+//
+//                    RickMortyNavGraph(
+//                        //modifier = Modifier.padding(innerPadding),
+//                    )
+ //               }
 
-                    RickMortyNavGraph(
-                        modifier = Modifier.padding(innerPadding),
-                    )
-                }
-
-            }
+           }
         }
     }
 }

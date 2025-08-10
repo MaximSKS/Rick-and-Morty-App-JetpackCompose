@@ -3,9 +3,9 @@ package com.mobile.rick_and_morty.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.rick_and_morty.domain.model.Character
-import com.mobile.rick_and_morty.domain.model.Episode
+import com.mobile.rick_and_morty.domain.model.Location
 import com.mobile.rick_and_morty.domain.repository.CharacterRepository
-import com.mobile.rick_and_morty.domain.repository.EpisodeDetailsRepository
+import com.mobile.rick_and_morty.domain.repository.LocationDetailsRepository
 import com.mobile.rick_and_morty.ui.screens.main.UiState
 import com.mobile.rick_and_morty.utils.extractIds
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,31 +16,30 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EpisodeDetailsViewModel @Inject constructor(
-    private val episodeDetailsRepository: EpisodeDetailsRepository,
+class LocationDetailsViewModel @Inject constructor(
+    private val locationDetailsRepository: LocationDetailsRepository,
     private val characterRepository: CharacterRepository
 ) : ViewModel() {
 
-    private val  _episodeState = MutableStateFlow<UiState<Episode>>(UiState.Loading)
-    val episodeState : StateFlow<UiState<Episode>> = _episodeState
+    private val  _locationState = MutableStateFlow<UiState<Location>>(UiState.Loading)
+    val locationState : StateFlow<UiState<Location>> = _locationState
 
     private val _charactersState = MutableStateFlow<UiState<List<Character>>>(UiState.Loading)
     val charactersState: StateFlow<UiState<List<Character>>> = _charactersState
 
 
-    fun loadEpisode(id: Int) {
+    fun loadLocation(id: Int) {
         viewModelScope.launch {
-            _episodeState.value = UiState.Loading
+            _locationState.value = UiState.Loading
             try {
-                val episode = episodeDetailsRepository.getEpisodeById(id)
-                _episodeState.value = UiState.Success(episode)
+                val location = locationDetailsRepository.getLocationById(id)
+                _locationState.value = UiState.Success(location)
             } catch (e: Exception) {
-                _episodeState.value = UiState.Error(e.localizedMessage ?: "Unknown error")
+                _locationState.value = UiState.Error(e.localizedMessage ?: "Unknown error")
             }
         }
     }
 
-    // for displaying characters on the EpisodeDetailsScreen
     fun loadCharacters(characterUrls: List<String>) {
         val characterIds = extractIds(characterUrls)
 

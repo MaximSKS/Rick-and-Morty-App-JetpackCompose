@@ -123,7 +123,7 @@ fun EpisodesScreen(
                     ) {
                         items(lazyPagingItems.itemCount) { index ->
                             val episode = lazyPagingItems[index]
-                            episode?.let {
+                            episode?.let { it ->
                                 AnimatedVisibility(
                                     visible = true,
                                     enter = fadeIn(animationSpec = tween(300)) + slideInVertically(),

@@ -11,6 +11,7 @@
     <string name="episodes_txt">Episodes:</string>
     <string name="live_status_txt">Live Status:</string>
     <string name="first_seen_in_txt">First seen in:</string>
+    <string name="origin_txt">Origin:</string>
     <string name="last_known_location_txt">Last known location:</string>
     <string name="species_and_gender_txt">Species and Gender:</string>
 
@@ -21,11 +22,18 @@
     <string name="episode_created_txt">Created:</string>
     <string name="episode_characters_txt">Characters:</string>
 
+    <!-- LocationDetailsScreen -->
+    <string name="location_type_txt">Type:</string>
+    <string name="location_dimension_txt">Dimension:</string>
+    <string name="location_residents_txt">Residents:</string>
+
     <!-- Errors text -->
     <string name="error_loading">Loading error: %1$s</string>
     <string name="unknown">Unknown</string>
 
     <!-- Buttons text -->
     <string name="retry">Retry</string>
+
+
 
 </resources>
