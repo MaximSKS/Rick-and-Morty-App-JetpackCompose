@@ -1,6 +1,5 @@
 package com.mobile.rick_and_morty.ui.preview.mock
 
-import com.mobile.rick_and_morty.data.model.CharacterOriginDto
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.domain.model.CharacterStatus
 import com.mobile.rick_and_morty.domain.model.Gender

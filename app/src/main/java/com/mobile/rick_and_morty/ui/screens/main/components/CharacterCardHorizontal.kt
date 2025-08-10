@@ -11,22 +11,19 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
 import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
@@ -50,47 +47,65 @@ fun CharacterCardHorizontal(
         onClick = { onCardClick(character.id) },
         elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4)
     ) {
-            Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)
+        ) {
 
-                GradientColorSection(modifier = Modifier.align(Alignment.CenterStart))
+            GradientColorSection(modifier = Modifier.align(Alignment.CenterStart))
 
-                Row(
+            Row(
+                modifier = Modifier
+                    .matchParentSize()
+                    .padding(start = Sizes.size70 + Spaces.space30, end = Spaces.space30)
+                    .zIndex(0f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
                     modifier = Modifier
-                        .matchParentSize()
-                        .padding(start = Sizes.size70 + Spaces.space8)
-                        .zIndex(0f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly,
+                        .fillMaxWidth()
+                        .align(Alignment.CenterVertically)
+                        .height(IntrinsicSize.Min),
                 ) {
-
                     Column(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(horizontal = Spaces.space30),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(space = Spaces.space8)
-                    ){
+                    ) {
 
-                        NameText(text = character.name)
+                        NameText(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = character.name,
+                            maxLines = 2,
+                            textAlign = TextAlign.Center
+                        )
 
                         StatusTextWithIndicator(
                             modifier = Modifier.padding(bottom = Spaces.space8),
-                            text = "Status: ${character.status.name}",
+                            text = stringResource(R.string.status_txt, character.status.name),   // "Status: ${character.status.name}"
                             statusColor = statusColor,
                         )
                     }
-
                 }
 
-                AvatarWithStatusBorder(
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .absoluteOffset(x = Sizes.size30)
-                        .padding(vertical = Spaces.space10,)
-                        .zIndex(1f),
-                    imageUrl = character.imageUrl,
-                    borderColor = statusColor,
-                    imageSize = Sizes.size70,
-                )
 
             }
+
+            AvatarWithStatusBorder(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .absoluteOffset(x = Sizes.size30)
+                    .padding(vertical = Spaces.space10)
+                    .zIndex(1f),
+                imageUrl = character.imageUrl,
+                borderColor = statusColor,
+                imageSize = Sizes.size70,
+            )
+
+        }
 
     }
 }
@@ -106,51 +121,10 @@ private fun GradientColorSection(modifier: Modifier = Modifier) {
     )
 }
 
-@Composable
-private fun NameText(
-    modifier: Modifier = Modifier,
-    text: String,
-    maxLines: Int = 1,
-    overflow: TextOverflow = TextOverflow.Ellipsis
-) {
-    Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-        maxLines = maxLines,
-        overflow = overflow,
-        modifier = modifier.padding(horizontal = Spaces.space8)
-    )
-}
-
-@Composable
-private fun StatusTextWithIndicator(
-    modifier: Modifier = Modifier,
-    text: String,
-    statusColor: Color,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(space = Spaces.space5),
-    ) {
-        Text(
-            text = text,
-            fontSize = 14.sp,
-            color = Color.Black,
-            modifier = modifier.padding(horizontal = Spaces.space8)
-        )
-
-        Box(
-            modifier = modifier
-                .size(Sizes.size6)
-                .background(color = statusColor, shape = CircleShape)
-        )
-    }
-}
 
 @Preview
 @Composable
-fun CharacterCardHorizontalPreview(modifier: Modifier = Modifier) {
+fun CharacterCardHorizontalPreview() {
     CharacterCardHorizontal(
         character = CharacterMock.characterMockData,
         onCardClick = {}

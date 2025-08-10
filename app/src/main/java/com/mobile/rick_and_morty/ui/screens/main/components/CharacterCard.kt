@@ -19,12 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
 import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
@@ -56,10 +59,16 @@ fun CharacterCard(
             ) {
 
                 GradientColorSection()
-                NameText(text = character.name)
+
+                NameText(
+                    modifier = Modifier.padding(horizontal = Spaces.space8),
+                    text = character.name,
+                    textAlign = TextAlign.Center
+                )
+
                 StatusTextWithIndicator(
                     modifier = Modifier.padding(bottom = Spaces.space8),
-                    text = "Status: ${character.status.name}",
+                    text = stringResource(R.string.status_txt, character.status.name),
                     statusColor = statusColor,
                 )
 
@@ -97,51 +106,9 @@ private fun GradientColorSection(modifier: Modifier = Modifier) {
 }
 
 
-@Composable
-private fun NameText(
-    modifier: Modifier = Modifier,
-    text: String,
-    maxLines: Int = 1,
-    overflow: TextOverflow = TextOverflow.Ellipsis
-) {
-    Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-        maxLines = maxLines,
-        overflow = overflow,
-        modifier = modifier.padding(horizontal = Spaces.space8)
-    )
-}
-
-@Composable
-private fun StatusTextWithIndicator(
-    modifier: Modifier = Modifier,
-    text: String,
-    statusColor: Color,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(space = Spaces.space5),
-    ) {
-        Text(
-            text = text,
-            fontSize = 14.sp,
-            color = Color.Black,
-            modifier = modifier.padding(horizontal = Spaces.space8)
-        )
-        // Status indicator
-        Box(
-            modifier = modifier
-                .size(Sizes.size6)
-                .background(color = statusColor, shape = CircleShape)
-        )
-    }
-}
-
 @Preview
 @Composable
-fun CharacterCardPreview(modifier: Modifier = Modifier) {
+fun CharacterCardPreview() {
     CharacterCard(
         character = CharacterMock.characterMockData,
         onCardClick = {}

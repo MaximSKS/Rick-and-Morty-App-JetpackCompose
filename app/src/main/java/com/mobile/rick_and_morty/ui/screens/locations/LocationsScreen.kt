@@ -1,36 +1,5 @@
 package com.mobile.rick_and_morty.ui.screens.locations
 
-//Test locations screen for bottom nav bar. Will be implemented later.
-//@Composable
-//fun LocationsScreen(
-//    modifier: Modifier = Modifier,
-//    //viewModel: LocationsViewModel,
-//    //navigateToLocationDetailsScreen: (locationId: Int) -> Unit,
-//    navController: NavHostController
-//
-//    ) {
-//    Scaffold(
-//        modifier = modifier.fillMaxSize(),
-//        bottomBar = {
-//            BottomNavBar(
-//                modifier = Modifier.fillMaxWidth(),
-//                navController = navController
-//            )
-//        }
-//    ) { innerPadding ->
-//        Box(
-//            contentAlignment = Alignment.Center,
-//            modifier = modifier.padding(innerPadding)){
-//            Text(
-//                text = "Locations screen",
-//                fontSize = 45.sp,
-//                fontWeight = FontWeight.Bold
-//            )
-//        }
-//    }
-//
-//}
-
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

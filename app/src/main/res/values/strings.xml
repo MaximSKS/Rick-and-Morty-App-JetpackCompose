@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Rick_and_Morty</string>
 
+    <string name="characters_txt">Characters:</string>
+    <string name="status_txt">Status: %1$s</string>
+
     <!-- TopBar, BottomBar text -->
     <string name="top_btm_bar_characters_txt">Characters</string>
     <string name="top_btm_bar_locations_txt">Locations</string>
@@ -16,11 +19,8 @@
     <string name="species_and_gender_txt">Species and Gender:</string>
 
     <!-- EpisodeDetailsScreen -->
-    <string name="characters_txt">Characters:</string>
     <string name="episode_air_date_txt">Air Date:</string>
     <string name="episode_code_txt">Episode Code:</string>
-    <string name="episode_created_txt">Created:</string>
-    <string name="episode_characters_txt">Characters:</string>
 
     <!-- LocationDetailsScreen -->
     <string name="location_type_txt">Type:</string>
