@@ -69,7 +69,7 @@ fun LocationsScreen(
 
     androidx.compose.material.Scaffold(
         //Modifier.fillMaxSize().systemBarsPadding(),
-        topBar = { TopBar(title = stringResource(R.string.top_btm_bar_episodes_txt)) },
+        topBar = { TopBar(title = stringResource(R.string.top_btm_bar_locations_txt)) },
         //modifier = Modifier.fillMaxWidth().statusBarsPadding(),
         bottomBar = {
             BottomNavBar(

@@ -3,7 +3,8 @@ package com.mobile.rick_and_morty.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.mobile.rick_and_morty.data.paging.CharactersPagingSource
+import com.mobile.rick_and_morty.data.mappers.toDomain
+import com.mobile.rick_and_morty.data.paging.RMGenericPagingSource
 import com.mobile.rick_and_morty.data.remote.RickAndMortyApi
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.domain.repository.CharactersRepository
@@ -16,7 +17,13 @@ class CharactersRepositoryImpl @Inject constructor(
     override fun getCharacters(): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
-            pagingSourceFactory = { CharactersPagingSource(api) }
+            pagingSourceFactory = {   // old version -> { CharactersPagingSource(api) }
+                RMGenericPagingSource { page ->
+                    val response = api.getCharacters(page)
+                    response.results.map { it.toDomain() }
+                }
+            }
+
         ).flow
     }
 }
