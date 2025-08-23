@@ -19,7 +19,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,8 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mobile.rick_and_morty.R
-import com.mobile.rick_and_morty.domain.model.Episode
 import com.mobile.rick_and_morty.domain.model.Location
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
@@ -37,7 +36,7 @@ import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCardHorizon
 import com.mobile.rick_and_morty.ui.screens.main.components.HeaderText
 import com.mobile.rick_and_morty.ui.screens.main.components.InfoText
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.LocationDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.LocationDetailsViewModel
 
 @Composable
 fun LocationDetailsScreen(
@@ -46,11 +45,11 @@ fun LocationDetailsScreen(
     navigateToLocationsScreen: () -> Unit,
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
-    val locationState by viewModel.locationState.collectAsState()
-    val charactersState by viewModel.charactersState.collectAsState()
+    val locationState by viewModel.detailsState.collectAsStateWithLifecycle()
+    val charactersState by viewModel.relatedState.collectAsStateWithLifecycle()
 
     LaunchedEffect(locationId) {
-        viewModel.loadLocation(locationId)
+        viewModel.loadDetails(locationId)
     }
 
     when (locationState) {
@@ -74,7 +73,7 @@ fun LocationDetailsScreen(
             val location = (locationState as UiState.Success).data
 
             LaunchedEffect(location) {
-                viewModel.loadCharacters(location.residents)
+                viewModel.loadRelated(location.residents)
             }
 
             Scaffold(

@@ -18,7 +18,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.domain.model.Episode
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
@@ -35,7 +35,7 @@ import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCardHorizon
 import com.mobile.rick_and_morty.ui.screens.main.components.HeaderText
 import com.mobile.rick_and_morty.ui.screens.main.components.InfoText
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.EpisodeDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.EpisodeDetailsViewModel
 
 @Composable
 fun EpisodeDetailsScreen(
@@ -44,11 +44,11 @@ fun EpisodeDetailsScreen(
     navigateToEpisodesScreen: () -> Unit,
     navigateToCharacterDetailsScreen: (characterId: Int) -> Unit,
 ) {
-    val episodeState by viewModel.episodeState.collectAsState()
-    val charactersState by viewModel.charactersState.collectAsState()
+    val episodeState by viewModel.detailsState.collectAsStateWithLifecycle()
+    val charactersState by viewModel.relatedState.collectAsStateWithLifecycle()
 
     LaunchedEffect(episodeId) {
-        viewModel.loadEpisode(episodeId)
+        viewModel.loadDetails(episodeId)
     }
 
     when (episodeState) {
@@ -72,7 +72,7 @@ fun EpisodeDetailsScreen(
             val episode = (episodeState as UiState.Success).data
 
             LaunchedEffect(episode) {
-                viewModel.loadCharacters(episode.characters)
+                viewModel.loadRelated(episode.characters)
             }
 
             Scaffold(

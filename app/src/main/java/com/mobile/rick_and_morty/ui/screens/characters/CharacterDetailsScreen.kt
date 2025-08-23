@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -25,7 +24,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +31,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mobile.rick_and_morty.R
 import com.mobile.rick_and_morty.domain.model.Character
 import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
@@ -49,7 +47,7 @@ import com.mobile.rick_and_morty.ui.screens.main.components.EpisodeCard
 import com.mobile.rick_and_morty.ui.screens.main.components.HeaderText
 import com.mobile.rick_and_morty.ui.screens.main.components.InfoText
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.CharacterDetailsViewModel
 
 @Composable
 fun CharacterDetailsScreen(
@@ -58,18 +56,17 @@ fun CharacterDetailsScreen(
     navigateToCharactersMainScreen: () -> Unit,
     navigateToEpisodeDetailsScreen: (episodeId: Int) -> Unit,
 ) {
-    val characterState by viewModel.characterState.collectAsState()
-    val episodesState by viewModel.episodesState.collectAsState()
 
+    val characterState by viewModel.detailsState.collectAsStateWithLifecycle()
+    val episodesState by viewModel.relatedState.collectAsStateWithLifecycle()
 
     LaunchedEffect(characterId) {
-        viewModel.loadCharacter(characterId)
+        viewModel.loadDetails(characterId)
     }
 
     when (characterState) {
 
         is UiState.Loading -> {
-
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
@@ -83,13 +80,11 @@ fun CharacterDetailsScreen(
         }
 
         is UiState.Success -> {
-
             val character = (characterState as UiState.Success).data
             val statusColor = CharacterStatusColor(character.status)
 
-
             LaunchedEffect(character) {
-                viewModel.loadEpisodes(character.episodeUrls)
+                viewModel.loadRelated(urls = character.episodeUrls)
             }
 
             Scaffold(

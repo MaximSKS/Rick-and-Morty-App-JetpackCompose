@@ -9,11 +9,9 @@ class RMGenericPagingSource<T: Any>(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
         return try {
-
             val page = params.key ?: 1
 
             val data = fetchPage(page)
-
 
             LoadResult.Page(
                 data = data,

@@ -13,12 +13,12 @@ import com.mobile.rick_and_morty.ui.screens.episodes.EpisodeDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.episodes.EpisodesScreen
 import com.mobile.rick_and_morty.ui.screens.locations.LocationDetailsScreen
 import com.mobile.rick_and_morty.ui.screens.locations.LocationsScreen
-import com.mobile.rick_and_morty.ui.viewmodel.CharacterDetailsViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.EpisodeDetailsViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.LocationDetailsViewModel
-import com.mobile.rick_and_morty.ui.viewmodel.LocationsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.CharacterDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.CharactersMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.EpisodeDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.EpisodesViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.detailsvm.LocationDetailsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.LocationsViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable

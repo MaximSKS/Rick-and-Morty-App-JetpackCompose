@@ -20,7 +20,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -50,7 +49,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.EpisodesViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.EpisodesViewModel
 import kotlinx.coroutines.launch
 
 @Composable

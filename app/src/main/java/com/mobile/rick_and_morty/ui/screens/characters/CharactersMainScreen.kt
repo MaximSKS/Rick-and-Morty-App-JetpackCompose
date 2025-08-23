@@ -28,9 +28,8 @@ import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCard
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.CharactersMainViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.CharactersMainViewModel
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun CharactersMainScreen(
@@ -136,19 +135,3 @@ fun CharactersMainScreen(
         }
     }
 }
-
-
-//@Composable
-//fun ErrorRetry(modifier: Modifier = Modifier, message: String, onRetry: () -> Unit) {
-//    Column(
-//        modifier = modifier.fillMaxSize().wrapContentSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Text(text = stringResource(R.string.error_loading, message))
-//
-//        Button( modifier = modifier.padding(top = Spaces.space8),
-//            onClick = onRetry) {
-//            Text(text = stringResource(R.string.retry))
-//        }
-//    }
-//}

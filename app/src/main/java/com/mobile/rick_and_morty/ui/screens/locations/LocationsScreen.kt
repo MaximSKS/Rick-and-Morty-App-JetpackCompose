@@ -49,7 +49,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
-import com.mobile.rick_and_morty.ui.viewmodel.LocationsViewModel
+import com.mobile.rick_and_morty.ui.viewmodel.mainvm.LocationsViewModel
 import kotlinx.coroutines.launch
 
 @Composable
