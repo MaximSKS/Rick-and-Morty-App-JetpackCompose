@@ -47,6 +47,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
+import com.mobile.rick_and_morty.ui.screens.main.components.GenericCard
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.mainvm.LocationsViewModel
@@ -175,44 +176,19 @@ fun LocationsScreen(
     }
 }
 
+
 @Composable
-fun LocationCard(
+private fun LocationCard(
     modifier: Modifier = Modifier,
     location: Location,
     onCardClick: (locationId: Int) -> Unit
 ) {
-    Card(
+    GenericCard(
         modifier = modifier,
-        shape = RickMortyShapes.small,
-        colors = CardDefaults.cardColors(Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
-        onClick = { onCardClick(location.id) }
-    ) {
-        Column(
-            modifier = Modifier.padding(
-                vertical = Spaces.space8,
-                horizontal = Spaces.space10
-            ),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(Spaces.space6),
-        ) {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = location.name,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(text = location.dimension)
-
-            }
-
-            Text(text = location.type)
-        }
-    }
+        item = location,
+        onClick = { onCardClick(location.id) },
+        title = { location.name },// or Location::name without '{}'
+        trailing = { location.dimension },
+        subtitle = { location.type }
+    )
 }

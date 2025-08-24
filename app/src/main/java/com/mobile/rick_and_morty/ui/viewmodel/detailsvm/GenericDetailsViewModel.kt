@@ -8,7 +8,7 @@ import com.mobile.rick_and_morty.utils.extractIds
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-open class GenericDetailsViewModel<T : Any, K : Any>(
+open class GenericDetailsViewModel<T: Any, K: Any>(
     private val detailsRepository: RMGenericDetailsRepository<T>,
     private val listRepository: RMGenericListRepository<K>,
 ) : BaseViewModel() {
@@ -40,7 +40,7 @@ open class GenericDetailsViewModel<T : Any, K : Any>(
         collectUiState(
             targetState = _relatedState,
             source = listRepository.getDataByIds(itemIds),
-            errorMessage = "Error loading lists of data",
+            errorMessage = "Error loading data list",
         )
 
     }

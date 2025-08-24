@@ -172,12 +172,8 @@ fun CharacterDetailsScreen(
 
                             items(items = episodes, key = { it.id }) { episode ->
                                 EpisodeCard(
-                                    modifier = Modifier
-                                        .padding(horizontal = Spaces.space16, vertical = Spaces.space5),
-                                    episodeId = episode.id,
-                                    episodeName = episode.name,
-                                    airDate = episode.airDate,
-                                    episodeCode = episode.episodeCode,
+                                    modifier = Modifier.padding(horizontal = Spaces.space16, vertical = Spaces.space5),
+                                    episode = episode,
                                     onCardClick = { navigateToEpisodeDetailsScreen(episode.id) }
                                 )
                             }
@@ -364,46 +360,3 @@ private fun CharacterInfoSection(
         }
     }
 }
-
-
-//@Composable
-// fun EpisodeCard(
-//    modifier: Modifier = Modifier,
-//    episodeId: Int,
-//    episodeName: String,
-//    airDate: String,
-//    episodeCode: String,
-//    onCardClick: (episodeId: Int) -> Unit
-//) {
-//    Card(
-//        modifier = modifier,
-//        shape = RickMortyShapes.small,
-//        // colors = CardDefaults.cardColors(Color.White),
-//        elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
-//        onClick = { onCardClick(episodeId) }
-//    ) {
-//        Column(
-//            modifier = Modifier.padding(vertical = Spaces.space8, horizontal = Spaces.space10),
-//            horizontalAlignment = Alignment.Start,
-//            verticalArrangement = Arrangement.spacedBy(Spaces.space6),
-//        ) {
-//
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-//            ) {
-//                Text(
-//                    modifier = Modifier.weight(1f),
-//                    text = episodeName,
-//                    fontSize = 16.sp,
-//                    fontWeight = FontWeight.SemiBold,
-//                    overflow = TextOverflow.Ellipsis
-//                )
-//                Text(text = episodeCode)
-//
-//            }
-//
-//            Text(text = airDate)
-//        }
-//    }
-//}

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -46,6 +48,7 @@ import com.mobile.rick_and_morty.domain.model.Episode
 import com.mobile.rick_and_morty.ui.designsystem.grid.RickMortyShapes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
+import com.mobile.rick_and_morty.ui.screens.main.components.EpisodeCard
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
@@ -120,7 +123,7 @@ fun EpisodesScreen(
                         verticalArrangement = Arrangement.spacedBy(Spaces.space14),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        items(lazyPagingItems.itemCount) { index ->
+                        items(lazyPagingItems.itemCount, key = { it }) { index ->
                             val episode = lazyPagingItems[index]
                             episode?.let { it ->
                                 AnimatedVisibility(
@@ -128,13 +131,38 @@ fun EpisodesScreen(
                                     enter = fadeIn(animationSpec = tween(300)) + slideInVertically(),
                                     exit = fadeOut()
                                 ) {
-                                    EpisodeCard2(
+                                    EpisodeCard(
                                         episode = it,
                                         onCardClick = { navigateToEpisodeDetailsScreen(it) }
                                     )
                                 }
                             }
                         }
+
+//                        items(lazyPagingItems, key = { it?.id }) { episode ->
+//                            if (episode == null) {
+//// Placeholder: можно заменить на shimmer или любую другую заглушку
+//                                Box(
+//                                    modifier = Modifier
+//                                        .fillMaxWidth()
+//                                        .height(64.dp)
+//                                        .padding(horizontal = Spaces.space16, vertical = Spaces.space5)
+//                                ) {
+//// simple placeholder
+//                                }
+//                            } else {
+//                                AnimatedVisibility(
+//                                    visible = true,
+//                                    enter = fadeIn(animationSpec = tween(300)) + slideInVertically(),
+//                                    exit = fadeOut()
+//                                ) {
+//                                    EpisodeCard2(
+//                                        episode = episode,
+//                                        onCardClick = { navigateToEpisodeDetailsScreen(episode) }
+//                                    )
+//                                }
+//                            }
+//                        }
 
                         lazyPagingItems.apply {
                             when (loadState.append) {
@@ -170,49 +198,3 @@ fun EpisodesScreen(
         }
     }
 }
-
-            @Composable
-            fun EpisodeCard2(
-                modifier: Modifier = Modifier,
-                episode: Episode,
-//                episodeId: Int,
-//                episodeName: String,
-//                airDate: String,
-//                episodeCode: String,
-                onCardClick: (episodeId: Int) -> Unit
-            ) {
-                Card(
-                    modifier = modifier,
-                    shape = RickMortyShapes.small,
-                    colors = CardDefaults.cardColors(Color.White),
-                    elevation = CardDefaults.cardElevation(defaultElevation = Sizes.size4),
-                    onClick = { onCardClick(episode.id) }
-                ) {
-                    Column(
-                        modifier = Modifier.padding(
-                            vertical = Spaces.space8,
-                            horizontal = Spaces.space10
-                        ),
-                        horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.spacedBy(Spaces.space6),
-                    ) {
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Absolute.SpaceBetween,
-                        ) {
-                            Text(
-                                modifier = Modifier.weight(1f),
-                                text = episode.name,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Text(text = episode.episodeCode)
-
-                        }
-
-                        Text(text = episode.airDate)
-                    }
-                }
-            }
