@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,16 +17,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.*
 import com.mobile.rick_and_morty.R
+import com.mobile.rick_and_morty.ui.designsystem.colors.gradientColorsFantasyLight
 import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.CharacterCard
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
+import com.mobile.rick_and_morty.ui.screens.main.components.ScrollToTopFab
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.mainvm.CharactersMainViewModel
@@ -40,12 +44,12 @@ fun CharactersMainScreen(
 ) {
     val lazyPagingItems = viewModel.characters.collectAsLazyPagingItems()
     val gridState = rememberLazyGridState() // remember grid's state
-    val coroutineScope = rememberCoroutineScope()
+    //val coroutineScope = rememberCoroutineScope()
 
     // Show FAB if first visible item is not first item
-    val showScrollToTopButton by remember {
-        derivedStateOf { gridState.firstVisibleItemIndex > 1 }
-    }
+//    val showScrollToTopButton by remember {
+//        derivedStateOf { gridState.firstVisibleItemIndex > 1 }
+//    }
 
     Scaffold(
         //Modifier.fillMaxSize().systemBarsPadding(),
@@ -54,23 +58,30 @@ fun CharactersMainScreen(
         bottomBar = { BottomNavBar(modifier = Modifier.fillMaxWidth(), navController = navController)
         },
         floatingActionButton = {
-            AnimatedVisibility(visible = showScrollToTopButton) {
-                FloatingActionButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            gridState.animateScrollToItem(0)
-                        }
-                    },
-                    shape = CircleShape,
-                    backgroundColor = Color.DarkGray
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowUp,
-                        contentDescription = "Scroll to Top",
-                        tint = Color.White
-                    )
-                }
-        }
+            ScrollToTopFab(
+                firstVisibleItemIndexProvider = { gridState.firstVisibleItemIndex },
+                animateScrollToItem = { gridState.animateScrollToItem(it) }
+            )
+//            AnimatedVisibility(
+//                visible = showScrollToTopButton) {
+//                FloatingActionButton(
+//                    onClick = {
+//                        coroutineScope.launch {
+//                            gridState.animateScrollToItem(0)
+//                        }
+//                    },
+//                    shape = CircleShape,
+//                    //modifier = Modifier
+//                   //     .background(Brush.linearGradient(colors = gradientColorsFantasyLight)),
+//                    //backgroundColor = Color.DarkGray
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.KeyboardArrowUp,
+//                        contentDescription = "Scroll to Top",
+//                        tint = Color.White
+//                    )
+//                }
+//        }
 
         }
     ) { innerPadding ->

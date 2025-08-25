@@ -50,6 +50,7 @@ import com.mobile.rick_and_morty.ui.designsystem.grid.Sizes
 import com.mobile.rick_and_morty.ui.designsystem.grid.Spaces
 import com.mobile.rick_and_morty.ui.screens.main.components.EpisodeCard
 import com.mobile.rick_and_morty.ui.screens.main.components.ErrorRetry
+import com.mobile.rick_and_morty.ui.screens.main.components.ScrollToTopFab
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.BottomNavBar
 import com.mobile.rick_and_morty.ui.screens.main.components.appbar.TopBar
 import com.mobile.rick_and_morty.ui.viewmodel.mainvm.EpisodesViewModel
@@ -63,12 +64,12 @@ fun EpisodesScreen(
     navController: NavHostController
 ) {
     val lazyPagingItems = viewModel.episodes.collectAsLazyPagingItems()
-    val coroutineScope = rememberCoroutineScope()
+    //val coroutineScope = rememberCoroutineScope()
     val listState =  rememberLazyListState()
-    // Show FAB if first visible item is not first item
-    val showScrollToTopButton by remember {
-        derivedStateOf { listState.firstVisibleItemIndex > 1 }
-    }
+
+//    val showScrollToTopButton by remember {
+//        derivedStateOf { listState.firstVisibleItemIndex > 1 }
+//    }
 
     Scaffold(
         //Modifier.fillMaxSize().systemBarsPadding(),
@@ -76,23 +77,27 @@ fun EpisodesScreen(
         //modifier = Modifier.fillMaxWidth().statusBarsPadding(),
         bottomBar = {  BottomNavBar(modifier = Modifier.fillMaxWidth(), navController = navController) },
         floatingActionButton = {
-            AnimatedVisibility(visible = showScrollToTopButton) {
-                FloatingActionButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            listState.animateScrollToItem(0)
-                        }
-                    },
-                    shape = CircleShape,
-                    backgroundColor = Color.DarkGray
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowUp,
-                        contentDescription = "Scroll to Top",
-                        tint = Color.White
-                    )
-                }
-            }
+            ScrollToTopFab(
+                firstVisibleItemIndexProvider = { listState.firstVisibleItemIndex },
+                animateScrollToItem = { listState.animateScrollToItem(it) }
+            )
+//            AnimatedVisibility(visible = showScrollToTopButton) {
+//                FloatingActionButton(
+//                    onClick = {
+//                        coroutineScope.launch {
+//                            listState.animateScrollToItem(0)
+//                        }
+//                    },
+//                    shape = CircleShape,
+//                    backgroundColor = Color.DarkGray
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.KeyboardArrowUp,
+//                        contentDescription = "Scroll to Top",
+//                        tint = Color.White
+//                    )
+//                }
+//            }
 
         }
     ) { innerPadding ->
